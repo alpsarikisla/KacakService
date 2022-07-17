@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KacakBank_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CustomerCards">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Customer_ID" Type="int" />
+    <Property Name="CardNumber" Type="nvarchar" MaxLength="16" />
+    <Property Name="expMonth" Type="nvarchar" MaxLength="2" />
+    <Property Name="expYear" Type="nvarchar" MaxLength="4" />
+    <Property Name="CVVNumber" Type="nvarchar" MaxLength="3" />
+    <Property Name="Balance" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="75" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="75" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="11" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="POSMerchants">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="250" />
+    <Property Name="MerchantCode" Type="nvarchar" MaxLength="11" />
+    <Property Name="Password" Type="nvarchar" MaxLength="11" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <Association Name="fk_customerCardCustomer">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="CustomerCards" Type="Self.CustomerCards" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CustomerCards">
+        <PropertyRef Name="Customer_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KacakBank_DBModelStoreContainer">
+    <EntitySet Name="CustomerCards" EntityType="Self.CustomerCards" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="POSMerchants" EntityType="Self.POSMerchants" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_customerCardCustomer" Association="Self.fk_customerCardCustomer">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="CustomerCards" EntitySet="CustomerCards" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KacakBank_DBModelStoreContainer" CdmEntityContainer="KacakBank_DBEntities">
+    <EntitySetMapping Name="CustomerCards">
+      <EntityTypeMapping TypeName="KacakBank_DBModel.CustomerCards">
+        <MappingFragment StoreEntitySet="CustomerCards">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+          <ScalarProperty Name="expMonth" ColumnName="expMonth" />
+          <ScalarProperty Name="expYear" ColumnName="expYear" />
+          <ScalarProperty Name="CVVNumber" ColumnName="CVVNumber" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="KacakBank_DBModel.Customers">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POSMerchants">
+      <EntityTypeMapping TypeName="KacakBank_DBModel.POSMerchants">
+        <MappingFragment StoreEntitySet="POSMerchants">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="MerchantCode" ColumnName="MerchantCode" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
