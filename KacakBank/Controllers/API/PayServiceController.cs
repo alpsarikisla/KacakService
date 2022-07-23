@@ -9,6 +9,16 @@ using KacakBank.Models;
 
 namespace KacakBank.Controllers.API
 {
+    public class ProductModel
+    {
+        public string MerchantCode { get; set; }
+        public string MerchandPassword { get; set; }
+        public string CardNo { get; set; }
+        public string ExpM { get; set; }
+        public string ExpY { get; set; }
+        public string CVV { get; set; }
+        public decimal Price { get; set; }
+    }
     public class PayServiceController : ApiController
     {
 
@@ -51,6 +61,71 @@ namespace KacakBank.Controllers.API
                                         RequestCode = "401";
                                     }
                                     
+                                }
+                                else
+                                {
+                                    RequestCode = "501";
+                                }
+                            }
+                            else
+                            {
+                                RequestCode = "601";
+                            }
+                        }
+                        else
+                        {
+                            RequestCode = "601";
+                        }
+                    }
+                    else
+                    {
+                        RequestCode = "701";
+                    }
+                }
+                else
+                {
+                    RequestCode = "801";
+                }
+            }
+            else
+            {
+                RequestCode = "901";
+            }
+            return Json(RequestCode);
+        }
+
+        public IHttpActionResult PostPayServices(ProductModel model)
+        {
+            string RequestCode = "";
+
+            int merchantCount = db.POSMerchants.Count(x => x.MerchantCode == model.MerchantCode && x.Password == model.MerchandPassword);
+            if (merchantCount != 0)
+            {
+                int cardControl = db.CustomerCards.Count(x => x.CardNumber == model.CardNo);
+                if (cardControl != 0)
+                {
+                    int id = db.CustomerCards.FirstOrDefault(x => x.CardNumber == model.CardNo).ID;
+
+                    CustomerCards cc = db.CustomerCards.Find(id);
+                    if (cc.CVVNumber == model.CVV)
+                    {
+                        if (!(Convert.ToInt32(cc.expYear) > DateTime.Now.Year))
+                        {
+                            if (!(Convert.ToInt32(cc.expMonth) > DateTime.Now.Month))
+                            {
+                                if (cc.Balance >= model.Price)
+                                {
+                                    try
+                                    {
+                                        cc.Balance -= model.Price;
+                                        db.SaveChanges();
+                                        RequestCode = "101";
+                                    }
+                                    catch
+                                    {
+                                        RequestCode = "401";
+                                    }
+
                                 }
                                 else
                                 {
